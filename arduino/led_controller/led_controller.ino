@@ -1,5 +1,5 @@
 #include <IRremote.h>
-
+#include<FastLED.h>
 
 #define	IR_BPlus  0xFF3AC5	// 
 #define	IR_BMinus 0xFFBA45	// 
@@ -46,15 +46,16 @@
 #define	IR_FADE3  0xFF609F	// 
 #define	IR_FADE7  0xFFE01F	// 
 
-#define redPin 6
-#define greenPin 9
+#define redPin 9
+#define greenPin 6
 #define bluePin 10
 
 #define FADE_MODE 0
 #define CONST_MODE 1
 #define JUMP_MODE 2
 #define PULSE_MODE 3
-#define OFF_MODE 4
+#define STROBE_MODE 4
+#define SATURATION_MODE 5
 
 #define MIN_PERIOD 4 //4ms
 #define DEFAULT_PERIOD 200
@@ -64,16 +65,20 @@
 
 
 
-
+uint8_t toggle_on = 1;
 uint8_t mode = FADE_MODE;
 uint16_t period = DEFAULT_PERIOD;
 uint16_t brightness = 7;
 uint8_t hue = 0;
+uint8_t saturation = 0;
 uint8_t value = 0;
 uint16_t red, green, blue;
 elapsedMillis timer;
-
-
+uint8_t old_hsv = false;
+uint8_t strobe_on = 0;
+uint8_t first_time = true;
+int8_t pulse_dir = 1;
+uint8_t last_results;
 
 decode_results results;
 int RECV_PIN = 11;
@@ -82,12 +87,12 @@ IRrecv irrecv(RECV_PIN);
 
 /* HSV to RGB conversion function with only integer
  * web.mit.edu/storborg/Public/hsvtorgb.c */
-void set_hsv(unsigned char h, unsigned char s, unsigned char v) {
+void set_hsv_fast(unsigned char h, unsigned char s, unsigned char v) {
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
-    unsigned char region, fpart, p, q, t;
-    
+	unsigned char region, fpart, p, q, t;
+	
     if(s == 0) {
         /* color is grayscale */
         r = g = b = v;
@@ -122,10 +127,22 @@ void set_hsv(unsigned char h, unsigned char s, unsigned char v) {
 	red = (((uint16_t) r) << brightness);
 	green = (((uint16_t) g) << brightness);
 	blue = (((uint16_t) b) << brightness);
-	
-    analogWrite(redPin, red);
-    analogWrite(greenPin, green);
-    analogWrite(bluePin, blue);
+	analogWrite(redPin, red);
+	analogWrite(greenPin, green);
+	analogWrite(bluePin, blue);
+}
+
+void set_hsv(unsigned char h, unsigned char s, unsigned char v) {
+	CHSV hsv( h, s, v); // pure blue in HSV Rainbow space
+	CRGB rgb;
+	hsv2rgb_rainbow( hsv, rgb);
+
+	red = (((uint16_t) rgb.red) << brightness);
+	green = (((uint16_t) rgb.green) << brightness);
+	blue = (((uint16_t) rgb.blue) << brightness);
+	analogWrite(redPin, red);
+	analogWrite(greenPin, green);
+	analogWrite(bluePin, blue);
 }
 
 //make sure to reset timer when switching modes
@@ -145,88 +162,157 @@ void setup() {
 }
 
 void loop() {
-	uint8_t first_time = true;
-	
-	if (irrecv.decode(&results)) {
-		Serial.println(results.value, HEX);
 
+	
+	/* codes from http://woodsgood.ca/projects/2015/02/13/rgb-led-strip-controllers-ir-codes/ */
+	if (irrecv.decode(&results)) {
+		if((results.value < 0xFFFFFF) && (results.value > 0xFF0000)) {
+			set_hsv(0, 0, 0);
+			delay(100);
+			last_results = results.value;
+		}
+		Serial.println(results.value, HEX);
 		switch(results.value) {
 		case IR_BPlus:
 			Serial.println("+");
-			brightness = (brightness++) % 8;
+			
+			if(brightness < 7) {
+				brightness++;
+			}
+			if(mode == SATURATION_MODE) {
+				set_hsv(hue, 255, saturation);
+			}
 			break;
 		case IR_BMinus:
 			Serial.println("-");
-			brightness = (brightness--) % 8;
+			if(brightness > 0) {
+				brightness--; 
+			}
+			if(mode == SATURATION_MODE) {
+				set_hsv(hue, 255, saturation);
+			}
 			break;
 		case IR_ON:
-			mode = FADE_MODE;
-			break;
 		case IR_OFF:
-			mode = OFF_MODE;
+			if(toggle_on) {
+				set_hsv(0, 0, 0);
+				toggle_on = 0;
+			} else {
+				toggle_on = 1;
+			} 
 			break;
+
 		case IR_R:
 			Serial.println("red");
 			mode = CONST_MODE;
 			hue = 0;
-			break;
-		case IR_G:
-			mode = CONST_MODE;
-			hue = 86;
-			break;
-		case IR_B:
-			mode = CONST_MODE;
-			hue = 172;
-			break;
-		case IR_W:
+			saturation = 255;
 			break;
 		case IR_B1:
 			mode = CONST_MODE;
-			hue = 80;
+			hue = 19;
+			saturation = 255;
+			break;
+		case IR_B5:
+			mode = CONST_MODE;
+			hue = 38;
+			saturation = 255;
+			break;
+		case IR_B9:
+			mode = CONST_MODE;
+			hue = 57;
+			saturation = 255;
+			break;
+		case IR_B13:
+			mode = CONST_MODE;
+			hue = 77;
+			saturation = 255;
+			break;
+
+		case IR_G:
+			mode = CONST_MODE;
+			hue = 96;
+			saturation = 255;
 			break;
 		case IR_B2:
 			mode = CONST_MODE;
-			hue = 86;
+			hue = 109;
+			saturation = 255;
+			break;
+		case IR_B6:
+			mode = CONST_MODE;
+			hue = 122;
+			saturation = 255;
+			break;
+		case IR_B10:
+			mode = CONST_MODE;
+			hue = 135;
+			saturation = 255;
+			break;
+		case IR_B14:
+			mode = CONST_MODE;
+			hue = 148;
+			saturation = 255;
+			break;
+
+
+		case IR_B:
+			mode = CONST_MODE;
+			hue = 160;
+			saturation = 255;
 			break;
 		case IR_B3:
 			mode = CONST_MODE;
-			hue = 87;
-			break;
-		case IR_B4:
-			mode = CONST_MODE;
-			hue = 88;
-			break;
-		case IR_B5:
-			break;
-		case IR_B6:
+			hue = 179;
+			saturation = 255;
 			break;
 		case IR_B7:
-			break;
-		case IR_B8:
-			break;
-		case IR_B9:
-			break;
-		case IR_B10:
+			mode = CONST_MODE;
+			hue = 198;
+			saturation = 255;
 			break;
 		case IR_B11:
-			break;
-		case IR_B12:
-			break;
-		case IR_B13:
-			break;
-		case IR_B14:
+			mode = CONST_MODE;
+			hue = 217;
+			saturation = 255;
 			break;
 		case IR_B15:
+			mode = CONST_MODE;
+			hue = 236;
+			saturation = 255;
 			break;
+
+
+		case IR_W:
+			mode = SATURATION_MODE;
+			saturation = 0;
+			break;
+		case IR_B4:
+			mode = SATURATION_MODE;
+			hue = 0;
+			saturation = 10;
+			break;		
+		case IR_B8:
+			mode = SATURATION_MODE;
+			hue = 96;
+			saturation = 10;
+			break;		
+		case IR_B12:
+			mode = SATURATION_MODE;
+			hue = 160;
+			saturation = 10;
+			break;		
 		case IR_B16:
-			break; 
+			mode = SATURATION_MODE;
+			saturation = 20;
+			break;
+
+
 		case IR_UPR:
 			break; 
 		case IR_UPG:
 			break; 
 		case IR_UPB:
-			break; 
-		case IR_QUICK:
 			break; 
 		case IR_DOWNR:
 			break; 
@@ -234,15 +320,28 @@ void loop() {
 			break; 
 		case IR_DOWNB:
 			break; 
-		case IR_SLOW:
+
+
+		case IR_QUICK:
+			period /= 1.5;
+			if(period < MIN_PERIOD) {
+				period = MIN_PERIOD;
+				timer = period;
+			}
 			break; 
+		case IR_SLOW:
+			period *= 1.5;
+			if(period > MAX_PERIOD) {
+				period = MAX_PERIOD;
+				timer = period;
+			}
+			break; 
+
 		case IR_DIY1:
 			break; 
 		case IR_DIY2:
 			break; 
 		case IR_DIY3:
-			break; 
-		case IR_AUTO:
 			break; 
 		case IR_DIY4:
 			break; 
@@ -250,51 +349,87 @@ void loop() {
 			break; 
 		case IR_DIY6:
 			break; 
+			
+		case IR_AUTO:
+			timer = 0;
+			mode = FADE_MODE;
+			break; 
 		case IR_FLASH:
+			timer = 0;	
+			mode = JUMP_MODE;
 			break; 
 		case IR_JUMP3:
 			break; 
 		case IR_JUMP7:
 			break; 
 		case IR_FADE3:
+			timer = 0;
+			mode = PULSE_MODE;
 			break; 
 		case IR_FADE7:
+			Serial.println("strobe mode");
+			timer = 0;
+			mode = STROBE_MODE;
 			break; 
 		}
 		irrecv.resume(); // Receive the next value
 	}
-	
-	switch(mode) {
-	
-	case FADE_MODE:
-		if(timer > period) {
-			timer -= period;
-			hue++;
+	if(toggle_on) {
+		switch(mode) {
+		case FADE_MODE:
+			if(timer > period) {
+				timer -= period;
+				hue++;
+				set_hsv(hue, 255, 255);
+			}
+			break;
+		case CONST_MODE:
+			if(first_time) {
+				first_time = false;
+			}
 			set_hsv(hue, 255, 255);
-		}
-		break;
-	case CONST_MODE:
-		if(first_time) {
+			break;
+		case JUMP_MODE:
+			if(timer > period) {
+				timer -= period;
+				hue+= JUMP_AMOUNT;
+			}
 			set_hsv(hue, 255, 255);
-			first_time = false;
+			break;
+		case PULSE_MODE: 
+			if(timer > (period >> 4)) {
+				timer -= (period >> 4);
+				if(value + pulse_dir == 255) {
+					pulse_dir = -1;
+				} else if (value + pulse_dir == 0) {
+					pulse_dir = 1;
+				} else {
+					if(pulse_dir > 0)
+						value++;
+					else
+						value--;
+				}
+				set_hsv(hue, saturation, value);
+			}
+			break;
+		case STROBE_MODE:
+			if(timer > period) {
+				timer -= period;
+				if(strobe_on == 1) {
+					set_hsv(255, 0, 255);
+					strobe_on = 0;
+				} else {
+					set_hsv(0, 0, 0);
+					strobe_on = 1;
+				}
+			}
+			break;
+		case SATURATION_MODE:
+			set_hsv(hue, saturation, 255);
+
+			break;
 		}
-		break;
-	case JUMP_MODE:
-		if(timer > period) {
-			timer -= period;
-			hue+= JUMP_AMOUNT;
-			set_hsv(hue, 255, 255);
-		}
-		break;
-	case PULSE_MODE: 
-		if(timer > period) {
-			timer -= period;
-			value++;
-			set_hsv(hue, 255, value);
-		}
-		break;
-	case OFF_MODE:
-		set_hsv(0, 0, 0);
 	}
+
 }
 
