@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name led_controller-rescue)(type Legacy)(uri ${KIPRJMOD}/led_controller-rescue.lib)(options "")(descr ""))
+  (lib (name led_controller-cache)(type Legacy)(uri ${KIPRJMOD}/led_controller-cache.lib)(options "")(descr ""))
+  (lib (name teensy)(type Legacy)(uri ${KIPRJMOD}/teensy_library-master/teensy.lib)(options "")(descr ""))
+)
