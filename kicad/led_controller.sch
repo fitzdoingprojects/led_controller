@@ -14,9 +14,9 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 7200 4200 0    60   ~ 0
-RX
 Text Label 7200 4300 0    60   ~ 0
+RX
+Text Label 7200 4200 0    60   ~ 0
 TX
 $Comp
 L power:+12V #PWR05
@@ -576,7 +576,7 @@ U 1 1 59D81574
 P 9050 3500
 F 0 "J4" H 9128 3541 50  0000 L CNN
 F 1 "ADC3" H 9128 3450 50  0001 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 9050 3500 50  0001 C CNN
+F 2 "Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal" H 9050 3500 50  0001 C CNN
 F 3 "" H 9050 3500 50  0001 C CNN
 	1    9050 3500
 	1    0    0    -1  
@@ -587,7 +587,7 @@ U 1 1 59D819EF
 P 9050 2500
 F 0 "J3" H 9128 2541 50  0000 L CNN
 F 1 "ADC2" H 9128 2450 50  0001 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 9050 2500 50  0001 C CNN
+F 2 "Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal" H 9050 2500 50  0001 C CNN
 F 3 "" H 9050 2500 50  0001 C CNN
 	1    9050 2500
 	1    0    0    -1  
@@ -598,7 +598,7 @@ U 1 1 59D81A71
 P 9050 1450
 F 0 "J2" H 9128 1491 50  0000 L CNN
 F 1 "ADC1" H 9128 1400 50  0001 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 9050 1450 50  0001 C CNN
+F 2 "Connector_JST:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horizontal" H 9050 1450 50  0001 C CNN
 F 3 "" H 9050 1450 50  0001 C CNN
 	1    9050 1450
 	1    0    0    -1  
@@ -1047,50 +1047,6 @@ F 1 "Teensy-LC" H 2975 5681 60  0000 C CNN
 F 2 "teensy:Teensy30_31_32_LC" H 2950 4000 60  0001 C CNN
 F 3 "" H 2950 4000 60  0000 C CNN
 	1    2950 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW3
-U 1 1 5B12BF59
-P 11250 4250
-F 0 "SW3" H 11250 4617 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 11250 4526 50  0000 C CNN
-F 2 "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal" H 11100 4410 50  0001 C CNN
-F 3 "~" H 11250 4510 50  0001 C CNN
-	1    11250 4250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW2
-U 1 1 5B12C19B
-P 11250 2300
-F 0 "SW2" H 11250 2667 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 11250 2576 50  0000 C CNN
-F 2 "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal" H 11100 2460 50  0001 C CNN
-F 3 "~" H 11250 2560 50  0001 C CNN
-	1    11250 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW4
-U 1 1 5B12C22F
-P 11250 6150
-F 0 "SW4" H 11250 6517 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 11250 6426 50  0000 C CNN
-F 2 "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal" H 11100 6310 50  0001 C CNN
-F 3 "~" H 11250 6410 50  0001 C CNN
-	1    11250 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW1
-U 1 1 5B12C2D1
-P 11200 8150
-F 0 "SW1" H 11200 8517 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 11200 8426 50  0000 C CNN
-F 2 "Connector_JST:JST_SH_SM05B-SRSS-TB_1x05-1MP_P1.00mm_Horizontal" H 11050 8310 50  0001 C CNN
-F 3 "~" H 11200 8410 50  0001 C CNN
-	1    11200 8150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1966,10 +1922,10 @@ Connection ~ 4250 1200
 Wire Wire Line
 	4250 1200 4250 1300
 $Comp
-L Mechanical:Mounting_Hole MK?
+L Mechanical:Mounting_Hole MK1
 U 1 1 5BA52F5B
 P 1600 7200
-F 0 "MK?" H 1700 7246 50  0000 L CNN
+F 0 "MK1" H 1700 7246 50  0000 L CNN
 F 1 "Mounting_Hole" H 1700 7155 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2" H 1600 7200 50  0001 C CNN
 F 3 "" H 1600 7200 50  0001 C CNN
@@ -1977,10 +1933,10 @@ F 3 "" H 1600 7200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK?
+L Mechanical:Mounting_Hole MK3
 U 1 1 5BA53363
 P 2600 7200
-F 0 "MK?" H 2700 7246 50  0000 L CNN
+F 0 "MK3" H 2700 7246 50  0000 L CNN
 F 1 "Mounting_Hole" H 2700 7155 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2" H 2600 7200 50  0001 C CNN
 F 3 "" H 2600 7200 50  0001 C CNN
@@ -1988,10 +1944,10 @@ F 3 "" H 2600 7200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK?
+L Mechanical:Mounting_Hole MK2
 U 1 1 5BA5341F
 P 1600 7550
-F 0 "MK?" H 1700 7596 50  0000 L CNN
+F 0 "MK2" H 1700 7596 50  0000 L CNN
 F 1 "Mounting_Hole" H 1700 7505 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2" H 1600 7550 50  0001 C CNN
 F 3 "" H 1600 7550 50  0001 C CNN
@@ -1999,14 +1955,62 @@ F 3 "" H 1600 7550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:Mounting_Hole MK?
+L Mechanical:Mounting_Hole MK4
 U 1 1 5BA5350D
 P 2600 7550
-F 0 "MK?" H 2700 7596 50  0000 L CNN
+F 0 "MK4" H 2700 7596 50  0000 L CNN
 F 1 "Mounting_Hole" H 2700 7505 50  0000 L CNN
 F 2 "MountingHole:MountingHole_2.2mm_M2" H 2600 7550 50  0001 C CNN
 F 3 "" H 2600 7550 50  0001 C CNN
 	1    2600 7550
 	1    0    0    -1  
 $EndComp
+$Comp
+L led_controller:Rotary_Encoder_Switch SW4
+U 1 1 5B15CC18
+P 11200 8150
+F 0 "SW4" H 11200 8517 50  0000 C CNN
+F 1 "Rotary_Encoder_Switch" H 11200 8426 50  0000 C CNN
+F 2 "Connector_JST:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical" H 11050 8310 50  0001 C CNN
+F 3 "~" H 11200 8410 50  0001 C CNN
+	1    11200 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L led_controller:Rotary_Encoder_Switch SW3
+U 1 1 5B15D1C9
+P 11250 6150
+F 0 "SW3" H 11250 6517 50  0000 C CNN
+F 1 "Rotary_Encoder_Switch" H 11250 6426 50  0000 C CNN
+F 2 "Connector_JST:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical" H 11100 6310 50  0001 C CNN
+F 3 "~" H 11250 6410 50  0001 C CNN
+	1    11250 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L led_controller:Rotary_Encoder_Switch SW2
+U 1 1 5B15D2BB
+P 11250 4250
+F 0 "SW2" H 11250 4617 50  0000 C CNN
+F 1 "Rotary_Encoder_Switch" H 11250 4526 50  0000 C CNN
+F 2 "Connector_JST:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical" H 11100 4410 50  0001 C CNN
+F 3 "~" H 11250 4510 50  0001 C CNN
+	1    11250 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L led_controller:Rotary_Encoder_Switch SW1
+U 1 1 5B15D4DD
+P 11250 2300
+F 0 "SW1" H 11250 2667 50  0000 C CNN
+F 1 "Rotary_Encoder_Switch" H 11250 2576 50  0000 C CNN
+F 2 "Connector_JST:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vertical" H 11100 2460 50  0001 C CNN
+F 3 "~" H 11250 2560 50  0001 C CNN
+	1    11250 2300
+	1    0    0    -1  
+$EndComp
+Text Label 14150 6500 0    50   ~ 0
+12V_SHUNT
+Text Label 2950 1200 0    50   ~ 0
+5V_SW
 $EndSCHEMATC
