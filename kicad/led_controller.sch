@@ -1272,13 +1272,13 @@ Text Label 4350 5400 0    60   ~ 0
 ADC_1
 Text Label 8400 1450 2    60   ~ 0
 ADC_1
-Text Label 4350 5300 0    60   ~ 0
+Text Label 4350 3900 0    60   ~ 0
 ADC_2
 Wire Wire Line
 	4350 5400 4050 5400
 Wire Wire Line
 	4350 5300 4050 5300
-Text Label 4350 5200 0    60   ~ 0
+Text Label 4350 4000 0    60   ~ 0
 ADC_3
 Wire Wire Line
 	4350 5200 4050 5200
@@ -1322,19 +1322,19 @@ Text Label 10200 8050 2    60   ~ 0
 ENC_4A
 Text Label 10200 8250 2    60   ~ 0
 ENC_4B
-Text Label 1800 3900 2    60   ~ 0
+Text Label 1800 4100 2    60   ~ 0
 ENC_1A
 Text Label 1800 4000 2    60   ~ 0
 ENC_1B
-Text Label 1800 4100 2    60   ~ 0
+Text Label 4350 4800 0    60   ~ 0
 ENC_2A
-Text Label 1800 4200 2    60   ~ 0
+Text Label 1800 4400 2    60   ~ 0
 ENC_3A
 Text Label 1800 4300 2    60   ~ 0
 ENC_3B
-Text Label 1800 4400 2    60   ~ 0
+Text Label 4350 5500 0    60   ~ 0
 ENC_4A
-Text Label 1800 4500 2    60   ~ 0
+Text Label 1800 4600 2    60   ~ 0
 ENC_4B
 Wire Wire Line
 	1800 3900 1900 3900
@@ -1362,15 +1362,15 @@ Wire Wire Line
 	4050 4600 4350 4600
 Text Label 4350 4900 0    60   ~ 0
 PWM_R
-Text Label 4350 4700 0    60   ~ 0
+Text Label 4350 5200 0    60   ~ 0
 PWM_G
-Text Label 4350 4600 0    60   ~ 0
+Text Label 4350 5300 0    60   ~ 0
 PWM_B
 Wire Wire Line
 	1900 4700 1800 4700
 Wire Wire Line
 	4050 5500 4350 5500
-Text Label 4350 5500 0    50   ~ 0
+Text Label 1800 5500 2    50   ~ 0
 SCK0
 Text Label 1800 4700 2    50   ~ 0
 CS0
@@ -1798,7 +1798,7 @@ Wire Wire Line
 Wire Wire Line
 	7300 8550 7400 8550
 Text Label 14000 8950 2    60   ~ 0
-I2C_SDA
+SDA
 $Comp
 L Device:Jumper_NC_Small JP1
 U 1 1 5B78BCC0
@@ -1822,7 +1822,7 @@ F 3 "~" H 14350 8700 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text Label 14350 9000 3    60   ~ 0
-I2C_SCL
+SCL
 Wire Wire Line
 	14350 9000 14350 8800
 Wire Wire Line
@@ -1884,19 +1884,19 @@ Wire Wire Line
 	4150 5750 4150 4400
 Wire Wire Line
 	4150 4400 4050 4400
-Text Label 1800 4600 2    50   ~ 0
+Text Label 1800 3900 2    50   ~ 0
 SW1
 Wire Wire Line
 	1900 4600 1800 4600
-Text Label 1800 5400 2    50   ~ 0
+Text Label 4350 4600 0    50   ~ 0
 SW2
 Wire Wire Line
 	1800 5400 1900 5400
-Text Label 4350 4800 0    50   ~ 0
+Text Label 1800 4200 2    50   ~ 0
 SW3
 Wire Wire Line
 	4350 4800 4050 4800
-Text Label 4350 4000 0    50   ~ 0
+Text Label 1800 4500 2    50   ~ 0
 SW4
 Wire Wire Line
 	4350 4000 4050 4000
@@ -2013,4 +2013,16 @@ Text Label 14150 6500 0    50   ~ 0
 12V_SHUNT
 Text Label 2950 1200 0    50   ~ 0
 5V_SW
+Text Label 4350 4700 0    60   ~ 0
+ENC_2B
+Wire Wire Line
+	1900 5500 1800 5500
+Wire Wire Line
+	4350 3900 4050 3900
+Text Label 14050 1000 0    50   ~ 0
+OUT_R
+Text Label 14100 2800 0    50   ~ 0
+OUT_G
+Text Label 14150 4300 0    50   ~ 0
+OUT_B
 $EndSCHEMATC
